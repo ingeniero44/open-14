@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef } from "react"
-import { ArrowRight, Phone, Calendar, CreditCard, ImagePlus, CheckCircle2, Upload, FileText, X } from "lucide-react"
+import { ArrowRight, Phone, Calendar, CreditCard, ImagePlus, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -15,27 +15,11 @@ export function ApplicationForm() {
     nombre: "",
     telefono: "",
     ciudad: "",
-    puesto: "",
     hasDisability: "",
     interviewDate: "",
     interviewTime: "",
     hasBankAccount: "",
   })
-  const [attachments, setAttachments] = useState<File[]>([])
-  const attachmentInputRef = useRef<HTMLInputElement>(null)
-
-  const handleAttachmentsSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files
-    if (files && files.length > 0) {
-      setAttachments((prev) => [...prev, ...Array.from(files)])
-    }
-    e.target.value = ""
-  }
-
-  const removeAttachment = (index: number) => {
-    setAttachments((prev) => prev.filter((_, i) => i !== index))
-  }
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -493,67 +477,6 @@ export function ApplicationForm() {
                 onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
                 className="bg-input"
               />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="puesto">¿Qué puesto te interesa?</Label>
-              <Input
-                id="puesto"
-                name="puesto"
-                placeholder="Ej: Empacador, Auxiliar de bodega..."
-                required
-                value={formData.puesto}
-                onChange={(e) => setFormData({ ...formData, puesto: e.target.value })}
-                className="bg-input"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="adjuntos">Adjunta tu CV o fotos de solicitud</Label>
-              <input
-                id="adjuntos"
-                type="file"
-                accept="image/*,.pdf,.doc,.docx"
-                multiple
-                onChange={handleAttachmentsSelect}
-                ref={attachmentInputRef}
-                className="hidden"
-              />
-              <button
-                type="button"
-                onClick={() => attachmentInputRef.current?.click()}
-                className="flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-primary/30 bg-input p-6 text-center transition-colors hover:border-primary/50 hover:bg-primary/5"
-              >
-                <Upload className="h-6 w-6 text-primary" />
-                <span className="text-sm font-medium text-foreground">Subir fotos o archivos</span>
-                <span className="text-xs text-muted-foreground">
-                  Puedes subir varias fotos, tu CV o archivos (JPG, PNG, PDF, DOC)
-                </span>
-              </button>
-
-              {attachments.length > 0 && (
-                <ul className="space-y-2">
-                  {attachments.map((file, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center justify-between gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm"
-                    >
-                      <div className="flex min-w-0 items-center gap-2">
-                        <FileText className="h-4 w-4 shrink-0 text-muted-foreground" />
-                        <span className="truncate text-foreground">{file.name}</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => removeAttachment(index)}
-                        className="shrink-0 text-muted-foreground transition-colors hover:text-foreground"
-                        aria-label={`Quitar ${file.name}`}
-                      >
-                        <X className="h-4 w-4" />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </div>
 
             <Button
