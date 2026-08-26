@@ -23,7 +23,7 @@ export function HeroSection() {
 
           {/* Descripción */}
           <p className="mb-8 text-lg text-muted-foreground md:text-xl text-balance">
-            Sé parte de nuestro equipo de trabajo. Te recordamos que tu salario puede aumentar dependiendo de tu puesto y de las horas extras.
+            Genera ingresos desde la comodidad de tu hogar empacando y organizando productos como cosméticos, juguetes, accesorios de cocina, productos comestibles y más. Nosotros nos encargamos de llevarte los productos y recogerlos una vez listos..
           </p>
 
           {/* Tarjeta de salario */}
